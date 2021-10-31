@@ -10,7 +10,7 @@ export class RegisterController {
     @Body('email') email: string,
     @Body('password') password: string,
   ) {
-    const res: any = this.registerService.registerUser(name, email, password);
+    const res = this.registerService.registerUser(name, email, password);
     return res;
   }
 }

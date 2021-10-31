@@ -21,7 +21,7 @@ export class RegisterService {
       throw new NotAcceptableException(error.message);
     }
     try {
-      const salt = await bcrypt.genSalt(15);
+      const salt = await bcrypt.genSalt(12);
       const hashedPassword = await bcrypt.hash(password, salt);
       const avatar = await assignAvatar(email);
       const newUser = new this.userModel({
