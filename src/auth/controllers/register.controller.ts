@@ -1,5 +1,5 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { RegisterService } from '../services/register.service';
+import { RegisterService } from '@auth/services/register.service';
 
 @Controller('/api/register')
 export class RegisterController {

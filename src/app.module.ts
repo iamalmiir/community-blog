@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import { UserSchema } from 'schemas/user.schema';
-import { UserModule } from './auth/auth.module';
+import { RegisterModule, AuthModule, LoginModule } from '@auth/index';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -11,7 +11,9 @@ import { AppService } from './app.service';
     ConfigModule.forRoot({
       envFilePath: ['.development.env'],
     }),
-    UserModule,
+    AuthModule,
+    RegisterModule,
+    LoginModule,
     MongooseModule.forRoot(process.env.MONGODB_URI),
     MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
   ],
