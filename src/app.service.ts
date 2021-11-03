@@ -1,11 +1,7 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-// import { User } from 'types/user.types';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UserDocument } from 'schemas/user.schema';
-
-import bcrypt from 'bcryptjs';
-import gravatar from 'gravatar';
 
 @Injectable()
 export class AppService {

@@ -26,7 +26,7 @@ export class Post {
     },
   ];
 
-  @Prop([String])
+  @Prop({ default: Date.now })
   comments: [
     {
       user: {
