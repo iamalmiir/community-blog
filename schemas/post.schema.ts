@@ -44,6 +44,7 @@ export class Post {
       };
       date: {
         type: Date;
+        default: Date;
       };
     },
   ];

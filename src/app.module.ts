@@ -9,8 +9,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import { UserSchema } from 'schemas/user.schema';
 import { RegisterModule, AuthModule } from '@auth/index';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { AppController, AppService } from './index';
 
 @Module({
   imports: [
