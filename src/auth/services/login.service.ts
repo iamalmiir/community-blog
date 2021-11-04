@@ -3,9 +3,9 @@ import { loginSchema } from 'validation/auth.schemas';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UserDocument } from 'schemas/user.schema';
+import { encrypt } from 'lib/crypting';
 import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
-import * as CryptoJS from 'crypto-js';
 
 @Injectable()
 export class LoginService {
@@ -38,10 +38,8 @@ export class LoginService {
         algorithm: 'HS512',
       });
 
-      const encryptedToken = CryptoJS.AES.encrypt(
-        token,
-        process.env.ENC_KEY,
-      ).toString();
+      // Encrypt token
+      const encryptedToken = encrypt(token);
 
       // Return the token
       return { token: encryptedToken };
