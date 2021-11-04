@@ -1,9 +1,8 @@
-export { LoginService } from '@auth/services/login.service';
 export { RegisterService } from '@auth/services/register.service';
 export { RegisterController } from '@auth/controllers/register.controller';
-export { LoginController } from '@auth/controllers/login.controller';
+export { AuthController } from '@auth/controllers/auth.controller';
+export { AuthService } from '@auth/services/auth.service';
 
 // Modules
 export { RegisterModule } from '@auth/modules/register.module';
-export { LoginModule } from '@auth/modules/login.module';
 export { AuthModule } from '@auth/auth.module';

@@ -8,7 +8,7 @@ import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
 
 @Injectable()
-export class LoginService {
+export class AuthService {
   constructor(
     @InjectModel('User') private readonly userModel: Model<UserDocument>,
   ) {}
