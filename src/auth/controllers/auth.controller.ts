@@ -1,4 +1,5 @@
-import { Controller, Post, Get, Body } from '@nestjs/common';
+import { Request as Req } from 'express';
+import { Controller, Post, Get, Body, Request } from '@nestjs/common';
 import { AuthService } from '@auth/services/auth.service';
 
 @Controller('/api/auth')
@@ -20,10 +21,8 @@ export class AuthController {
   // @desc     Get user by token
   // @access   Private
   @Get()
-  async getUser() {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const res = await this.loginService.getUser();
-    return res;
+  async getUser(@Request() req: Req) {
+    const user = await this.loginService.useIt(req);
+    return user;
   }
 }
