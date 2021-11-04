@@ -10,7 +10,7 @@ export class ProfileController {
   // @access   Private
   @Get()
   async getProfile(@Request() req: any) {
-    return this.profileService.getProfile(req);
+    return await this.profileService.getProfile(req);
   }
 }
 
@@ -26,6 +26,6 @@ export class ProfileCreateUpdateController {
     if (error) {
       throw new HttpException(error.details[0].message, 400);
     }
-    return this.profileService.createUpdateProfile(req);
+    return await this.profileService.createUpdateProfile(req);
   }
 }
