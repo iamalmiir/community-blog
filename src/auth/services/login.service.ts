@@ -5,6 +5,7 @@ import { Model } from 'mongoose';
 import { UserDocument } from 'schemas/user.schema';
 import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
+import * as CryptoJS from 'crypto-js';
 
 @Injectable()
 export class LoginService {
@@ -36,8 +37,14 @@ export class LoginService {
         expiresIn: '1d',
         algorithm: 'HS512',
       });
+
+      const encryptedToken = CryptoJS.AES.encrypt(
+        token,
+        process.env.ENC_KEY,
+      ).toString();
+
       // Return the token
-      return { token };
+      return { token: encryptedToken };
     } catch (error) {
       throw new NotAcceptableException(error.message);
     }
