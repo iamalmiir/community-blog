@@ -21,8 +21,6 @@ export class AuthMiddleware implements NestMiddleware {
     try {
       const decodedToken = await decrypt(token);
       const decoded = await jwt.verify(decodedToken, process.env.JWT_SECRET);
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
       const user = await this.userModel.findById(decoded.user.id);
 
       if (!user) {

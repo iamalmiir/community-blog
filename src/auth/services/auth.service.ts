@@ -1,5 +1,4 @@
 import { Injectable, NotAcceptableException } from '@nestjs/common';
-import { loginSchema } from 'validation/auth.schemas';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UserDocument } from 'schemas/user.schema';
@@ -14,16 +13,13 @@ export class AuthService {
   ) {}
 
   async loginUser(email: string, password: string) {
-    const { error } = loginSchema.validate({ email, password });
-    if (error) {
-      throw new NotAcceptableException(error.message);
-    }
     try {
       const user = await this.userModel.findOne({ email });
       if (!user) {
         throw new NotAcceptableException('Invalid email or password');
       }
       const isMatch = await bcrypt.compare(password, user.password);
+
       if (!isMatch) {
         throw new NotAcceptableException('Invalid email or password');
       }
@@ -37,10 +33,8 @@ export class AuthService {
         expiresIn: '1d',
         algorithm: 'HS512',
       });
-
       // Encrypt token
       const encryptedToken = encrypt(token);
-
       // Return the token
       return { token: encryptedToken };
     } catch (error) {

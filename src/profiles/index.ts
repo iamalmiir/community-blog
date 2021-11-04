@@ -1,2 +1,3 @@
-export { ProfileService } from '@profiles/services/profile.service';
-export { ProfileController } from '@profiles/controllers/profile.contoller';
+export { ProfileService } from '@profiles/profile.service';
+export { ProfileController } from '@profiles/profile.contoller';
+export { ProfileCreateUpdateController } from '@profiles/profile.contoller';

@@ -1,5 +1,13 @@
 import { Request as Req } from 'express';
-import { Controller, Post, Get, Body, Request } from '@nestjs/common';
+import { loginSchema } from 'validation/auth.schemas';
+import {
+  Controller,
+  Post,
+  Get,
+  Body,
+  Request,
+  NotAcceptableException,
+} from '@nestjs/common';
 import { AuthService } from '@auth/services/auth.service';
 
 @Controller('/api/auth')
@@ -10,9 +18,14 @@ export class AuthController {
   // @access   Public
   @Post()
   async loginUser(
+    @Request() req: Req,
     @Body('email') email: string,
     @Body('password') password: string,
   ) {
+    const { error } = loginSchema.validate({ email, password });
+    if (error) {
+      throw new NotAcceptableException(error.message);
+    }
     const res = await this.loginService.loginUser(email, password);
     return res;
   }
