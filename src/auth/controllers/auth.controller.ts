@@ -22,7 +22,7 @@ export class AuthController {
     @Body('email') email: string,
     @Body('password') password: string,
   ) {
-    const { error } = loginSchema.validate({ email, password });
+    const { error } = loginSchema.validate(req.body);
     if (error) {
       throw new NotAcceptableException(error.message);
     }
@@ -35,7 +35,7 @@ export class AuthController {
   // @access   Private
   @Get()
   async getUser(@Request() req: Req) {
-    const user = await this.loginService.useIt(req);
+    const user = await this.loginService.getUser(req);
     return user;
   }
 }

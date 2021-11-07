@@ -36,7 +36,7 @@ export class AuthService {
     }
   }
 
-  async useIt(req: any) {
+  async getUser(req: any) {
     const token = await req.headers['x-auth-token'];
     const decryptedToken = await decrypt(token);
     const user = await this.userModel
