@@ -4,7 +4,6 @@ import { Model } from 'mongoose';
 import { UserDocument } from 'schemas/user.schema';
 import { Request, Response, NextFunction } from 'express';
 import { decrypt } from 'lib/crypting';
-import * as jwt from 'jsonwebtoken';
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
@@ -20,8 +19,8 @@ export class AuthMiddleware implements NestMiddleware {
 
     try {
       const decodedToken = await decrypt(token);
-      const decoded = await jwt.verify(decodedToken, process.env.JWT_SECRET);
-      const user = await this.userModel.findById(decoded.user.id);
+      // const decoded = await jwt.verify(decodedToken, process.env.JWT_SECRET);
+      const user = await this.userModel.findById(decodedToken.user.id);
 
       if (!user) {
         throw new HttpException('Unauthorized', 401);

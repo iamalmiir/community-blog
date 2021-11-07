@@ -18,9 +18,11 @@ export class ProfileService {
     try {
       const token = req.headers['x-auth-token'];
       const decryptedToken = decrypt(token);
-      const profile = await this.profileModel.findOne({
-        user: decryptedToken.user.id,
-      });
+      const profile = await this.profileModel
+        .findOne({
+          user: decryptedToken.user.id,
+        })
+        .populate('user', ['name', 'avatar']);
 
       if (!profile) {
         throw new NotFoundException('Profile not found');
@@ -44,7 +46,6 @@ export class ProfileService {
       instagram,
       linkedin,
       facebook,
-      // spread the rest of the fields we don't need to check
       ...rest
     } = req.body;
     const token = req.headers['x-auth-token'];
@@ -59,7 +60,7 @@ export class ProfileService {
           : '',
       skills: Array.isArray(skills)
         ? skills
-        : skills.split(',').map((skill) => ' ' + skill.trim()),
+        : skills.split(',').map((skill: string) => ' ' + skill.trim()),
       ...rest,
     };
     // Build socialFields object
@@ -84,6 +85,17 @@ export class ProfileService {
     } catch (error) {
       console.log(error);
       throw new HttpException('Server error', 500);
+    }
+  }
+
+  async getAllProfiles() {
+    try {
+      const profiles = await this.profileModel
+        .find()
+        .populate('user', ['name', 'avatar']);
+      return profiles;
+    } catch (error) {
+      throw new HttpException(error, 500);
     }
   }
 }

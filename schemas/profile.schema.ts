@@ -1,4 +1,3 @@
-import { Document } from 'mongoose';
 import * as mongoose from 'mongoose';
 
 export type ProfileDocument = Document;
@@ -6,8 +5,9 @@ export type ProfileDocument = Document;
 export const ProfileSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'user',
+    ref: 'User',
   },
+
   company: {
     type: String,
   },
