@@ -1,17 +1,16 @@
+import { ConfigModule } from '@nestjs/config';
 import {
   Module,
   NestModule,
   MiddlewareConsumer,
   RequestMethod,
 } from '@nestjs/common';
-import { AuthMiddleware } from 'middleware/auth.middleware';
-import { MongooseModule } from '@nestjs/mongoose';
-import { ConfigModule } from '@nestjs/config';
 import { UserSchema } from 'schemas/user.schema';
 import { ProfileSchema } from 'schemas/profile.schema';
+import { MongooseModule } from '@nestjs/mongoose';
 import { RegisterModule, AuthModule } from '@auth/index';
 import { ProfileModule } from '@profiles/profile.module';
-import { AppController, AppService } from './index';
+import { AuthMiddleware } from 'middleware/auth.middleware';
 
 @Module({
   imports: [
@@ -27,8 +26,6 @@ import { AppController, AppService } from './index';
     RegisterModule,
     ProfileModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

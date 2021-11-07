@@ -2,7 +2,6 @@ import { ProfileDocument } from 'schemas/index';
 import { Injectable, NotFoundException, HttpException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import * as jwt from 'jsonwebtoken';
 import * as normalizeUrl from 'normalize-url';
 import { decrypt } from 'lib/crypting';
 
@@ -19,9 +18,8 @@ export class ProfileService {
     try {
       const token = req.headers['x-auth-token'];
       const decryptedToken = decrypt(token);
-      const verifiedToken = jwt.verify(decryptedToken, process.env.JWT_SECRET);
       const profile = await this.profileModel.findOne({
-        user: verifiedToken.user.id,
+        user: decryptedToken.user.id,
       });
 
       if (!profile) {
@@ -51,11 +49,10 @@ export class ProfileService {
     } = req.body;
     const token = req.headers['x-auth-token'];
     const decryptedToken = decrypt(token);
-    const verifiedToken = jwt.verify(decryptedToken, process.env.JWT_SECRET);
 
     // build a profile
     const profileFields = {
-      user: verifiedToken.user.id,
+      user: decryptedToken.user.id,
       website:
         website && website !== ''
           ? normalizeUrl(website, { forceHttps: true })
@@ -78,7 +75,7 @@ export class ProfileService {
     try {
       const profile = await this.profileModel.findOneAndUpdate(
         {
-          user: verifiedToken.user.id,
+          user: decryptedToken.user.id,
         },
         { $set: profileFields },
         { new: true, upsert: true, setDefaultsOnInsert: true },

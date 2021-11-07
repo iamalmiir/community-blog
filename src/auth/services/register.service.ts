@@ -1,8 +1,8 @@
 import { Injectable, NotAcceptableException } from '@nestjs/common';
+import { encrypt } from 'lib/crypting';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UserDocument } from 'schemas/user.schema';
-import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
 import { assignAvatar } from 'lib/avatar';
 
@@ -14,7 +14,7 @@ export class RegisterService {
 
   async registerUser(name: string, email: string, password: string) {
     try {
-      const salt = await bcrypt.genSalt(12);
+      const salt = await bcrypt.genSalt(15);
       const hashedPassword = await bcrypt.hash(password, salt);
       const avatar = await assignAvatar(email);
       const newUser = new this.userModel({
@@ -29,13 +29,10 @@ export class RegisterService {
           id: newUser.id,
         },
       };
-      // Create a token
-      const token = jwt.sign(payload, process.env.JWT_SECRET, {
-        expiresIn: '1d',
-        algorithm: 'HS512',
-      });
+
+      const encryptedToken = await encrypt(payload);
       // Return the token
-      return { token };
+      return { token: encryptedToken };
     } catch (error) {
       throw new NotAcceptableException(error.message);
     }
