@@ -3,6 +3,7 @@ import { Injectable, NotFoundException, HttpException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import * as normalizeUrl from 'normalize-url';
+import axios from 'axios';
 import { decrypt } from 'lib/crypting';
 
 @Injectable()
@@ -206,6 +207,92 @@ export class ProfileService {
       }
 
       throw new NotFoundException(error.message);
+    }
+  }
+
+  async addEducation(req: any) {
+    const { school, degree, fieldofstudy, from, to, current, description } =
+      req.body;
+    const token = req.headers['x-auth-token'];
+    const decryptedToken = decrypt(token);
+
+    const newEdu = {
+      school,
+      degree,
+      fieldofstudy,
+      from,
+      to,
+      current,
+      description,
+    };
+
+    try {
+      const profile = await this.profileModel.findOne({
+        user: decryptedToken.user.id,
+      });
+
+      if (!profile) {
+        throw new NotFoundException('Profile not found');
+      }
+
+      profile.education.unshift(newEdu);
+      await profile.save();
+      return profile;
+    } catch (error) {
+      if (error.kind === 'ObjectId') {
+        throw new NotFoundException('Profile not found');
+      }
+
+      throw new NotFoundException(error.message);
+    }
+  }
+
+  async deleteEducation(req: any) {
+    const { edu_id } = req.params;
+    const token = req.headers['x-auth-token'];
+    const decryptedToken = decrypt(token);
+
+    try {
+      const profile = await this.profileModel.findOne({
+        user: decryptedToken.user.id,
+      });
+
+      if (!profile) {
+        throw new NotFoundException('Profile not found');
+      }
+
+      const removeIndex = profile.education
+        .map((item: any) => item.id)
+        .indexOf(edu_id);
+
+      profile.education.splice(removeIndex, 1);
+      await profile.save();
+      return profile;
+    } catch (error) {
+      if (error.kind === 'ObjectId') {
+        throw new NotFoundException('Profile not found');
+      }
+
+      throw new NotFoundException(error.message);
+    }
+  }
+
+  async getGithubRepos(req: any) {
+    try {
+      const uri = encodeURI(
+        `https://api.github.com/users/${req.params.username}/repos?per_page=5&sort=created:asc`,
+      );
+      const headers = {
+        'user-agent': 'node.js',
+        // Authorization: `token ${config.get('githubClientSecret')}`,
+      };
+
+      const gitHubResponse = await axios.get(uri, { headers });
+
+      return gitHubResponse.data;
+    } catch (error) {
+      console.log(error);
+      throw new HttpException('Server error', 500);
     }
   }
 }

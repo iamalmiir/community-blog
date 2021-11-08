@@ -12,6 +12,17 @@ export type ProfileDocument = Document & {
       description: string;
     },
   ];
+  education: [
+    {
+      school: string;
+      degree: string;
+      fieldofstudy: string;
+      from: Date;
+      to: Date;
+      current: boolean;
+      description: string;
+    },
+  ];
 };
 
 export const ProfileSchema = new mongoose.Schema({

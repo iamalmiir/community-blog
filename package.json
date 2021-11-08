@@ -27,6 +27,7 @@
     "@nestjs/mongoose": "^9.0.1",
     "@nestjs/passport": "^8.0.1",
     "@nestjs/platform-fastify": "^8.1.2",
+    "@types/axios": "^0.14.0",
     "axios": "^0.24.0",
     "bcryptjs": "^2.4.3",
     "crypto-js": "^4.1.1",

@@ -9,28 +9,6 @@ export const profileValidation = Joi.object({
   skills: Joi.string().min(5).required(),
   bio: Joi.string().min(5).required(),
   githubusername: Joi.string().min(5).required(),
-  experience: Joi.array().items(
-    Joi.object().keys({
-      title: Joi.string().min(5).required(),
-      company: Joi.string().min(5).required(),
-      location: Joi.string().min(5),
-      from: Joi.date(),
-      to: Joi.date(),
-      current: Joi.boolean(),
-      description: Joi.string().min(5),
-    }),
-  ),
-  education: Joi.array().items(
-    Joi.object().keys({
-      school: Joi.string().min(5).required(),
-      degree: Joi.string().min(5).required(),
-      fieldofstudy: Joi.string().min(5).required(),
-      from: Joi.date().required(),
-      to: Joi.date(),
-      current: Joi.boolean(),
-      description: Joi.string().min(5),
-    }),
-  ),
   youtube: Joi.string().min(5),
   twitter: Joi.string().min(5),
   facebook: Joi.string().min(5),

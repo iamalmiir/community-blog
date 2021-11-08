@@ -19,7 +19,8 @@
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "@auth/*": ["src/auth/*"],
-      "@profiles/*": ["src/profiles/*"]
+      "@profiles/*": ["src/profiles/*"],
+      "@posts/*": ["src/posts/*"]
     }
   }
 }

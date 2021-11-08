@@ -10,6 +10,7 @@ import {
 import {
   profileValidation,
   validateExperience,
+  validateEducation,
 } from 'validation/profile.schemas';
 import { ProfileService } from '@profiles/index';
 
@@ -82,5 +83,33 @@ export class ProfileCreateUpdateController {
   @Delete('/experience/:exp_id')
   async deleteExperience(@Request() req: any) {
     return await this.profileService.deleteExperience(req);
+  }
+
+  // @route    PUT api/profile/education
+  // @desc     Add profile education
+  // @access   Private
+  @Put('/education')
+  async addEducation(@Request() req: any) {
+    const { error } = validateEducation.validate(req.body);
+    if (error) {
+      throw new HttpException(error.details[0].message, 400);
+    }
+    return await this.profileService.addEducation(req);
+  }
+
+  // @route    DELETE api/profile/education/:edu_id
+  // @desc     Delete education from profile
+  // @access   Private
+  @Delete('/education/:edu_id')
+  async deleteEducation(@Request() req: any) {
+    return await this.profileService.deleteEducation(req);
+  }
+
+  // @route    GET api/profile/github/:username
+  // @desc     Get user repos from Github
+  // @access   Public
+  @Get('/github/:username')
+  async getGithubRepos(@Request() req: any) {
+    return await this.profileService.getGithubRepos(req);
   }
 }

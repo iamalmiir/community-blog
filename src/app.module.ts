@@ -11,6 +11,7 @@ import { UserSchema } from 'schemas/user.schema';
 import { ProfileSchema } from 'schemas/profile.schema';
 import { RegisterModule, AuthModule } from '@auth/index';
 import { ProfileModule } from '@profiles/profile.module';
+import { PostModule } from '@posts/post.module';
 import { AppController, AppService } from './index';
 
 @Module({
@@ -26,6 +27,7 @@ import { AppController, AppService } from './index';
     AuthModule,
     RegisterModule,
     ProfileModule,
+    PostModule,
   ],
   controllers: [AppController],
   providers: [AppService],

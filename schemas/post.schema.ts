@@ -1,55 +1,51 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, ObjectId, Date } from 'mongoose';
+import * as mongoose from 'mongoose';
 
-export type PostDocument = Post & Document;
+export type PostDocument = Document;
 
-@Schema()
-export class Post {
-  @Prop({ required: true })
-  user: ObjectId;
-
-  @Prop({ required: true })
-  text: string;
-
-  @Prop()
-  name: string;
-
-  @Prop()
-  avatar: string;
-
-  @Prop([String])
+export const PostSchema = new mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+  },
+  text: {
+    type: String,
+    required: true,
+  },
+  name: {
+    type: String,
+  },
+  avatar: {
+    type: String,
+  },
   likes: [
     {
       user: {
-        type: ObjectId;
-      };
+        type: mongoose.Schema.Types.ObjectId,
+      },
     },
-  ];
-
-  @Prop({ default: Date.now })
+  ],
   comments: [
     {
       user: {
-        type: ObjectId;
-      };
+        type: mongoose.Schema.Types.ObjectId,
+      },
       text: {
-        type: string;
-        required: true;
-      };
+        type: String,
+        required: true,
+      },
       name: {
-        type: string;
-      };
+        type: String,
+      },
       avatar: {
-        type: string;
-      };
+        type: String,
+      },
       date: {
-        type: Date;
-        default: Date;
-      };
+        type: Date,
+        default: Date.now,
+      },
     },
-  ];
-  @Prop({ required: true, default: Date.now })
-  date: Date;
-}
-
-export const PostSchema = SchemaFactory.createForClass(Post);
+  ],
+  date: {
+    type: Date,
+    default: Date.now,
+  },
+});
