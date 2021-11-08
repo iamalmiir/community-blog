@@ -38,6 +38,8 @@ export class AppModule implements NestModule {
         { path: '/api/auth', method: RequestMethod.GET },
         { path: '/api/profile/me', method: RequestMethod.GET },
         { path: '/api/profile', method: RequestMethod.POST },
+        { path: '/api/profile', method: RequestMethod.DELETE },
+        { path: '/api/profile', method: RequestMethod.PUT },
       );
   }
 }

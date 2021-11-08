@@ -1,6 +1,18 @@
 import * as mongoose from 'mongoose';
 
-export type ProfileDocument = Document;
+export type ProfileDocument = Document & {
+  experience: [
+    {
+      title: string;
+      company: string;
+      location: string;
+      from: Date;
+      to: Date;
+      current: boolean;
+      description: string;
+    },
+  ];
+};
 
 export const ProfileSchema = new mongoose.Schema({
   user: {

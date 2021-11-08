@@ -98,4 +98,114 @@ export class ProfileService {
       throw new HttpException(error, 500);
     }
   }
+
+  async getProfileById(req: any) {
+    try {
+      const profile = await this.profileModel
+        .findOne({
+          user: req.params.user_id,
+        })
+        .populate('user', ['name', 'avatar']);
+      if (!profile) {
+        throw new NotFoundException('Profile not found');
+      }
+      return profile;
+    } catch (error) {
+      if (error.kind === 'ObjectId') {
+        throw new NotFoundException('Profile not found');
+      }
+
+      throw new NotFoundException('Server error');
+    }
+  }
+
+  async deleteProfile(req: any) {
+    try {
+      const token = req.headers['x-auth-token'];
+      const decryptedToken = decrypt(token);
+      const profile = await this.profileModel.findOneAndDelete({
+        user: decryptedToken.user.id,
+      });
+
+      if (!profile) {
+        throw new NotFoundException('Profile not found');
+      }
+      return {
+        message: 'Profile deleted successfully',
+      };
+    } catch (error) {
+      if (error.kind === 'ObjectId') {
+        throw new NotFoundException('Profile not found');
+      }
+
+      throw new NotFoundException('Server error');
+    }
+  }
+
+  async addExperience(req: any) {
+    const { title, company, location, from, to, current, description } =
+      req.body;
+    const token = req.headers['x-auth-token'];
+    const decryptedToken = decrypt(token);
+
+    const newExp = {
+      title,
+      company,
+      location,
+      from,
+      to,
+      current,
+      description,
+    };
+
+    try {
+      const profile = await this.profileModel.findOne({
+        user: decryptedToken.user.id,
+      });
+
+      if (!profile) {
+        throw new NotFoundException('Profile not found');
+      }
+
+      profile.experience.unshift(newExp);
+      await profile.save();
+      return profile;
+    } catch (error) {
+      if (error.kind === 'ObjectId') {
+        throw new NotFoundException('Profile not found');
+      }
+
+      throw new NotFoundException(error.message);
+    }
+  }
+
+  async deleteExperience(req: any) {
+    const { exp_id } = req.params;
+    const token = req.headers['x-auth-token'];
+    const decryptedToken = decrypt(token);
+
+    try {
+      const profile = await this.profileModel.findOne({
+        user: decryptedToken.user.id,
+      });
+
+      if (!profile) {
+        throw new NotFoundException('Profile not found');
+      }
+
+      const removeIndex = profile.experience
+        .map((item: any) => item.id)
+        .indexOf(exp_id);
+
+      profile.experience.splice(removeIndex, 1);
+      await profile.save();
+      return profile;
+    } catch (error) {
+      if (error.kind === 'ObjectId') {
+        throw new NotFoundException('Profile not found');
+      }
+
+      throw new NotFoundException(error.message);
+    }
+  }
 }
