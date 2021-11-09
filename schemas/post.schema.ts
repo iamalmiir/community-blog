@@ -1,6 +1,10 @@
 import * as mongoose from 'mongoose';
 
-export type PostDocument = Document;
+export type PostDocument = Document & {
+  _id: string;
+  user: string;
+  likes: string[];
+};
 
 export const PostSchema = new mongoose.Schema({
   user: {
