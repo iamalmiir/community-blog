@@ -14,9 +14,7 @@ async function bootstrap() {
     }),
   );
   await app.register(fastifyHelmet);
-  const PORT = 3000;
-  await app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT} 🎧`);
-  });
+  const PORT = process.env.PORT;
+  await app.listen(PORT);
 }
 bootstrap();
