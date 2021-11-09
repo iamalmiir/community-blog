@@ -9,9 +9,11 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
-    new FastifyAdapter(),
+    new FastifyAdapter({
+      logger: true,
+    }),
   );
-  app.register(fastifyHelmet);
+  await app.register(fastifyHelmet);
   const PORT = 3000;
   await app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT} 🎧`);
