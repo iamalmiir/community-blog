@@ -4,6 +4,7 @@ export type PostDocument = Document & {
   _id: string;
   user: string;
   likes: string[];
+  comments: string[] | any;
 };
 
 export const PostSchema = new mongoose.Schema({

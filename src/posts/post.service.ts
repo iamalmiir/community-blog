@@ -178,4 +178,93 @@ export class PostService {
       throw new HttpException(error, 500);
     }
   }
+
+  // @route   POST api/posts/comment/:id
+  // @desc    Comment on post
+  // @access  Private
+  async commentOnPost(id, req) {
+    try {
+      const post = await this.postModel.findById(id);
+      const token = await req.headers['x-auth-token'];
+      const decryptedToken = await decrypt(token);
+
+      if (!post) {
+        throw new HttpException('Post not found', 404);
+      }
+
+      const user = await this.userModel.findById(decryptedToken.user.id);
+
+      const newComment = {
+        text: req.body.text,
+        name: user.name,
+        avatar: user.avatar,
+        user: user._id,
+      };
+
+      post.comments.unshift(newComment);
+
+      await post.save();
+
+      return post.comments;
+    } catch (error) {
+      if (error.name === 'CastError') {
+        throw new HttpException('Invalid post id', 404);
+      }
+
+      throw new HttpException(error, 500);
+    }
+  }
+
+  // @route   DELETE api/posts/comment/:id/:comment_id
+  // @desc    Delete comment
+  // @access  Private
+  async deleteComment(id, commentId, req) {
+    try {
+      const post = await this.postModel.findById(id);
+      const token = await req.headers['x-auth-token'];
+      const decryptedToken = await decrypt(token);
+
+      if (!post) {
+        throw new HttpException('Post not found', 404);
+      }
+
+      // Check if comment exists
+      if (
+        post.comments.filter(
+          (comment: any) => comment.id.toString() === commentId,
+        ).length === 0
+      ) {
+        throw new HttpException('Comment does not exist', 404);
+      }
+
+      // Check if user created comment
+      if (
+        post.comments.filter(
+          (comment: any) =>
+            comment.id.toString() === commentId &&
+            comment.user.toString() !== decryptedToken.user.id,
+        ).length > 0
+      ) {
+        throw new HttpException('Not authorized', 401);
+      }
+
+      // Get remove index
+      const removeIndex = post.comments
+        .map((comment: any) => comment.id.toString())
+        .indexOf(commentId);
+
+      // Splice out of array
+      post.comments.splice(removeIndex, 1);
+
+      // Save
+      await post.save();
+      return post.comments;
+    } catch (error) {
+      if (error.name === 'CastError') {
+        throw new HttpException('Invalid post id', 404);
+      }
+
+      throw new HttpException(error, 500);
+    }
+  }
 }

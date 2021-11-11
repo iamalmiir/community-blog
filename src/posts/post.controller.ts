@@ -23,7 +23,7 @@ export class PostController {
       throw new HttpException(error.message, 400);
     }
 
-    return this.postService.createPost(req);
+    return await this.postService.createPost(req);
   }
 
   // @route   GET api/posts
@@ -39,8 +39,8 @@ export class PostController {
   // @access  Private
   @Get('/:id')
   async getPostById(@Request() req) {
-    const { id } = req.params;
-    return this.postService.getPostById(id);
+    const { id } = await req.params;
+    return await this.postService.getPostById(id);
   }
 
   // @route   DELETE api/posts/:id
@@ -48,8 +48,8 @@ export class PostController {
   // @access  Private
   @Delete('/:id')
   async deletePostById(@Request() req) {
-    const { id } = req.params;
-    return this.postService.deletePostById(id, req);
+    const { id } = await req.params;
+    return await this.postService.deletePostById(id, req);
   }
 
   // @route   PUT api/posts/:id
@@ -57,8 +57,8 @@ export class PostController {
   // @access  Private
   @Put('/like/:id')
   async updatePostById(@Request() req) {
-    const { id } = req.params;
-    return this.postService.likePost(id, req);
+    const { id } = await req.params;
+    return await this.postService.likePost(id, req);
   }
 
   // @route    PUT api/posts/unlike/:id
@@ -66,7 +66,25 @@ export class PostController {
   // @access   Private
   @Put('/unlike/:id')
   async unlikePost(@Request() req) {
-    const { id } = req.params;
-    return this.postService.unlikePost(id, req);
+    const { id } = await req.params;
+    return await this.postService.unlikePost(id, req);
+  }
+
+  // @route   POST api/posts/comment/:id
+  // @desc    Comment on post
+  // @access  Private
+  @Post('/comment/:id')
+  async commentOnPost(@Request() req) {
+    const { id } = await req.params;
+    return await this.postService.commentOnPost(id, req);
+  }
+
+  // @route   DELETE api/posts/comment/:id/:comment_id
+  // @desc    Delete comment
+  // @access  Private
+  @Delete('/comment/:id/:comment_id')
+  async deleteComment(@Request() req) {
+    const { id, comment_id } = await req.params;
+    return await this.postService.deleteComment(id, comment_id, req);
   }
 }
