@@ -7,8 +7,15 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "@headlessui/react": "^1.4.2",
+    "autoprefixer": "^9",
+    "headlessui": "^0.0.0",
+    "heroicons": "^1.0.5",
+    "postcss": "^7",
     "react": "^17.0.0",
-    "react-dom": "^17.0.0"
+    "react-dom": "^17.0.0",
+    "react-icons": "^4.3.1",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat"
   },
   "devDependencies": {
     "@types/react": "^17.0.0",
