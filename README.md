@@ -5,7 +5,7 @@
   <a href="https://www.fastify.io/" target="blank"><img src="https://github.com/fastify/graphics/raw/HEAD/fastify-landscape-outlined.svg" width="320" alt="Nest Logo" /></a>
 </p>
 <p align="center">
-  <a href="https://www.fastify.io/" target="blank"><img src="https://thecreatorhome.com/static/img/react-icon-0.png" width="320" alt="Nest Logo" /></a>
+  <a href="https://reactjs.org/" target="blank"><img src="https://thecreatorhome.com/static/img/react-icon-0.png" width="320" alt="Nest Logo" /></a>
 </p>
 
 <!-- https://github.com/fastify/graphics/raw/HEAD/fastify-landscape-outlined.svg -->
