@@ -4,6 +4,9 @@
 <p align="center">
   <a href="https://www.fastify.io/" target="blank"><img src="https://github.com/fastify/graphics/raw/HEAD/fastify-landscape-outlined.svg" width="320" alt="Nest Logo" /></a>
 </p>
+<p align="center">
+  <a href="https://www.fastify.io/" target="blank"><img src="https://icons-for-free.com/iconfiles/png/512/design+development+facebook+framework+mobile+react+icon-1320165723839064798.png" width="320" alt="Nest Logo" /></a>
+</p>
 
 <!-- https://github.com/fastify/graphics/raw/HEAD/fastify-landscape-outlined.svg -->
 
