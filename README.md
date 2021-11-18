@@ -7,6 +7,9 @@
 <p align="center">
   <a href="https://reactjs.org/" target="blank"><img src="https://thecreatorhome.com/static/img/react-icon-0.png" width="320" alt="Nest Logo" /></a>
 </p>
+<p align="center">
+  <a href="https://vitejs.dev/" target="blank"><img src="https://camo.githubusercontent.com/61e102d7c605ff91efedb9d7e47c1c4a07cef59d3e1da202fd74f4772122ca4e/68747470733a2f2f766974656a732e6465762f6c6f676f2e737667" width="320" alt="Nest Logo" /></a>
+</p>
 
 <!-- https://github.com/fastify/graphics/raw/HEAD/fastify-landscape-outlined.svg -->
 
