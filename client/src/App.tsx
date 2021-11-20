@@ -1,13 +1,13 @@
-import './index.css'
-import HomePage from './components/screen/HomePage'
-import Layout from './components/layout/Layout'
+import './index.css';
+import HomePage from './components/screen/HomePage';
+import Layout from './components/layout/Layout';
 
 const App = () => {
   return (
-    <Layout title='Home'>
+    <Layout title="Home">
       <HomePage />
     </Layout>
-  )
-}
+  );
+};
 
-export default App
+export default App;
