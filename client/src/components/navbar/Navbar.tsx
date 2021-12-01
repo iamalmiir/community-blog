@@ -19,7 +19,7 @@ const Navbar = () => {
       href: '/register',
       current: location.pathname === '/register',
     },
-    { name: 'Login', href: '/login', current: location.pathname === '/login' },
+    { name: 'Log In', href: '/login', current: location.pathname === '/login' },
   ];
   return (
     <Disclosure as="nav" className="bg-gray-800">
