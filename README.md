@@ -5,7 +5,7 @@
   <a href="https://www.fastify.io/" target="blank"><img src="https://github.com/fastify/graphics/raw/HEAD/fastify-landscape-outlined.svg" width="320" alt="Nest Logo" /></a>
 </p>
 <p align="center">
-  <a href="https://reactjs.org/" target="blank"><img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pngaaa.com%2Fdetail%2F2507930&psig=AOvVaw3zwsEiVn_1uBj3lWFDou7-&ust=1649111613695000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCICZztP5-PYCFQAAAAAdAAAAABAJ" width="320" alt="React Logo" /></a>
+  <a href="https://reactjs.org/" target="blank"><img src="https://image.pngaaa.com/930/2507930-middle.png" width="320" alt="React Logo" /></a>
 </p>
 <p align="center">
   <a href="https://vitejs.dev/" target="blank"><img src="https://camo.githubusercontent.com/61e102d7c605ff91efedb9d7e47c1c4a07cef59d3e1da202fd74f4772122ca4e/68747470733a2f2f766974656a732e6465762f6c6f676f2e737667" width="320" alt="Nest Logo" /></a>
